@@ -2,8 +2,17 @@ import { NextResponse, NextRequest } from 'next/server';
 import { NEXT_PUBLIC_SERVER_URI } from '@/secret';
 
 export async function POST(request: NextRequest) {
-    const data = await request.json();
+    let data: any = {};
 
+    try {
+        const text = await request.text();
+        if (text) {
+            data = JSON.parse(text);
+        }
+    } catch (err) {
+        return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    }
+    
     if (!NEXT_PUBLIC_SERVER_URI) {
         return NextResponse.json(
             { error: 'Server URI is not defined' },

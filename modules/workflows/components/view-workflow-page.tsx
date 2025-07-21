@@ -6,46 +6,31 @@ import {
     CardHeader,
 } from '@/components/ui/card';
 import { Heading } from "@/components/ui/heading";
-
-import { useGetUser } from "@/modules/users/api/use-get-user";
 import { WorkflowForm } from "./workflow-form";
+import { useGetWorkflow } from "../api/use-get-workflow";
 
 
 export function ViewWorkflowPage({ id }: { id: string }) {
-    const UserQuery = useGetUser(id);
-    const isLoading = UserQuery.isLoading;
+    const query = useGetWorkflow(id) ;
+    const isLoading = query.isLoading;
 
-    const defaultValues = UserQuery.data
-        ? {
-            name: UserQuery.data.name,
-            email: UserQuery.data.email,
-            phone: UserQuery.data.phone,
-            unitId: UserQuery.data.unitId,
-            ldap: UserQuery.data.ldap,
-            password: UserQuery.data.password,
-            passwordConfirm: UserQuery.data.password,
-            roleId: UserQuery.data.roleId,
-            deleted: UserQuery.data.deleted
-        }
-        : {
-            name: "",
-            email: "",
-            phone: "",
-            unitId: "",
-            ldap: true,
-            password: "",
-            passwordConfirm: "",
-            roleId: [],
-            deleted: false
-        };
+    const defaultValues = query.data
+    ? {
+        name: query.data.name ?? "",
+        description: query.data.description ?? "",
+    }
+    : {
+        name: "",
+        description: "",
+    };
 
     return (
         <>
             <Card className="mx-auto w-full">
                 <CardHeader>
                     <Heading
-                        title='Utilisateur'
-                        description="Consulter les informations de l'utilisateur"
+                        title='Workflow'
+                        description="Consulter les informations du Workflow"
                     />
                 </CardHeader>
                 <CardContent>

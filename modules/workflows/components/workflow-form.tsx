@@ -50,48 +50,9 @@ export const WorkflowForm = ({
         defaultValues: defaultValues,
     });
 
-    // Fetch units 
-    const unitsQuery = useGetUnits();
-
-    // Process unit options
-    const unitOptions = (unitsQuery.data ?? []).map((item: { name: any; id: any; regionId: any }) => ({
-        label: item.name,
-        value: item.id,
-        regionId: item.regionId
-    }));
-
-    // Define role icons 
-    type RoleName = 'ADMIN' | 'VALIDATOR' | 'ASSIGNATOR' | 'MANAGER' | 'COMMERCIAL';
-    const roleIcons: Record<RoleName, React.FC> = {
-        ADMIN: Shield,
-        VALIDATOR: CheckCircle,
-        ASSIGNATOR: Briefcase,
-        MANAGER: DollarSign,
-        COMMERCIAL: User,
-    };
-
-    // Fetch roles
-    const rolesQuery = useGetRoles();
-
-    // Process roles options
-    const rolesOptions = (rolesQuery.data ?? []).map((item: { name: string; id: string }) => {
-        // Obtenir l'icône en fonction du nom du rôle, avec une valeur par défaut
-        const icon = roleIcons[item.name.toUpperCase() as RoleName] || User; // Utiliser User comme icône par défaut
-        return {
-            label: item.name,
-            value: item.id,
-            icon: icon,
-        };
-    });
-
     // Handle form submission
     const handleSubmit = (values: FormValues) => {
         onSubmit(values);
-    }
-
-    // Handle actions
-    const handleAction = () => {
-        onAction?.();
     }
 
     // Handle deletion
@@ -156,19 +117,7 @@ export const WorkflowForm = ({
                             >
                                 {disabled ? (<><Loader2 className='animate-spin size-4 mr-2' /> Loading</>) : id ? "Save changes" : "Create Workflow"}
                             </Button>
-                            {
-                                !!id && (<Button
-                                    type="button"
-                                    className=""
-                                    variant={defaultValues?.isActive ? "success" : "destructive"}
-                                    onClick={handleAction}
-                                    disabled={disabled}
-                                >
-                                    {defaultValues?.isActive ? <Power className="mr-2 size-4" /> : <PowerOff className="mr-2 size-4" />}
-                                    {defaultValues?.isActive ? "Reactivation " : "Deactivation "} User
-                                </Button>)
-
-                            }
+                          
                             {
                                 !!id && (<Button
                                     type="button"
@@ -178,7 +127,7 @@ export const WorkflowForm = ({
                                     disabled={disabled}
                                 >
                                     <Trash className='size-4 mr-2' />
-                                    Delete User
+                                    Delete Workflow
                                 </Button>)
 
                             }

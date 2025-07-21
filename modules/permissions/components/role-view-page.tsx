@@ -16,9 +16,6 @@ export default  function RoleViewPage({
   let user = null;
 
   if (roleId !== 'new') {
-    // if (!userId) {
-    //   notFound();
-    // }
     if (edit) {
       return <EditRolePage id={roleId} />
     }

@@ -34,75 +34,47 @@ export function EditWorkflowPage({ id }: { id: string }) {
 
     const query = useGetWorkflow(id);
     const editMutation = useUpdateWorkflow(id);
-    const actionMutation = useDisReactiveUser(id);
     const deleteMutation = useDeleteWorkflow(id);
 
     const isPending = editMutation.isPending
-        || actionMutation.isPending
         || deleteMutation.isPending;
 
     const isLoading = query.isLoading;
 
     const defaultValues = query.data
-        ? {
-            name: query.data.name,
-            email: query.data.email,
-            phone: query.data.phone,
-            unitId: query.data.unitId,
-            ldap: query.data.ldap,
-            password: query.data.password,
-            passwordConfirm: query.data.password,
-            roleId: query.data.roleId,
-            deleted: query.data.deleted
-        }
-        : {
-            name: "",
-            email: "",
-            phone: "",
-            unitId: "",
-            ldap: true,
-            password: "",
-            passwordConfirm: "",
-            roleId: [],
-            deleted: false
-        };
+    ? {
+        name: query.data.name ?? "",
+        description: query.data.description ?? "",
+    }
+    : {
+        name: "",
+        description: "",
+    };
 
-    const action = defaultValues.deleted ? "Deactivation" : "Reactivation";
-    const [ConfirmationActionDialog, actionConfirm] = useConfirm({
-        title: "Are you sure?",
-        message: `You are about to ${action.toLowerCase()} this user. Are you sure you want to proceed?`,
-    });
+
+    
 
     const [ConfirmationDialog, confirm] = useConfirm({
         title: "Are you sure?",
-        message: `You are about to delete this user.?`,
+        message: `You are about to delete this Workflow. `,
     });
 
     const onSubmit = (values: FormValues) => {
         editMutation.mutate(values, {
             onSuccess: () => {
-                router.push('/admin/user');
+                router.push('/admin/workflow');
             },
         });
     }
 
-    const onAction = async () => {
-        const ok = await actionConfirm();
-        if (ok) {
-            actionMutation.mutate(undefined, {
-                onSuccess: () => {
-                    //router.push(`/admin/user/${id}`);
-                },
-            });
-        }
-    }
+   
 
     const onDelete = async () => {
         const ok = await confirm();
         if (ok) {
             deleteMutation.mutate(undefined, {
                 onSuccess: () => {
-                    router.push('/admin/user');
+                    router.push('/admin/workflow');
                 },
             });
         }
@@ -111,7 +83,6 @@ export function EditWorkflowPage({ id }: { id: string }) {
     return (
         <>
             <ConfirmationDialog />
-            <ConfirmationActionDialog />
             <Card className="mx-auto w-full">
                 <CardHeader>
                     <Heading
@@ -130,7 +101,6 @@ export function EditWorkflowPage({ id }: { id: string }) {
                                 disabled={isPending}
                                 id={id}
                                 defaultValues={defaultValues}
-                                onAction={onAction}
                                 onDelete={onDelete}
                             />
                         )

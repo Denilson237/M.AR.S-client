@@ -15,8 +15,9 @@ import { Button } from '@/components/ui/button';
 import { useConfirm } from '@/hooks/use-confirm';
 
 import { useOpenUser } from '@/modules/users/hooks/use-open-user';
-import { useDeleteUser } from '@/modules/users/api/use-delete-user';
 import { useDisReactiveUser } from '@/modules/users/api/use-dis-reactivate-user';
+import { useDeleteWorkflow } from '../api/use-delete-workflow';
+import { useDisReactiveWorkflow } from '../api/useDisReactiveWorkflow';
 
 
 type Props = {
@@ -35,25 +36,27 @@ export const Actions = ({ id, status }: Props) => {
         message: confirmMessage,
     });
 
-    const mutation = useDisReactiveUser(id);
+    const mutation = useDisReactiveWorkflow(id);
 
     const handleAction = async () => {
-        const action = status ? "Deactivation" : "Reactivation";
-        setconfirmMessage(`You are about to ${action.toLowerCase()} this user. Are you sure you want to proceed?`)
-        const ok = await confirm();
-        if (ok) {
-            mutation.mutate(undefined, {
-                onSuccess: () => {
-                    onClose();
-                },
-            });
-        }
-    }
+  // Si status = true => on veut désactiver
+    const action = status ? "deactivate" : "reactivate";
 
-    const mutationDelete = useDeleteUser(id);
+    setconfirmMessage(`You are about to ${action} this Workflow. Are you sure you want to proceed?`);
 
+    const ok = await confirm();
+    if (!ok) return;
+
+    mutation.mutate(undefined, {
+        onSuccess: () => {
+        onClose(); // Ferme la modal/dialogue
+        },
+    });
+    };
+
+    const mutationDelete = useDeleteWorkflow(id);
     const handleDelete = async () => {
-        setconfirmMessage(`You are about to delete this user.`)
+        setconfirmMessage(`You are about to delete this Workflow.`)
         const ok = await confirm();
         if (ok) {
             mutationDelete.mutate(undefined, {
@@ -111,3 +114,7 @@ export const Actions = ({ id, status }: Props) => {
         </>
     )
 }
+//function useDisReactiveWorkflow(id: string) {
+  //  throw new Error('Function not implemented.');
+//}
+

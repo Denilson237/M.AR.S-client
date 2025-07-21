@@ -26,7 +26,7 @@ export const useCreateWorkflow= () => {
     },
     onError: (error: any) => {
       // Retrieve the error message from the error response
-      const errorMessage = error.response?.data?.message || "Failed to create User.";
+      const errorMessage = error.response?.data?.message || "Failed to create Workflow.";
       toast.error(errorMessage);
     },
   });

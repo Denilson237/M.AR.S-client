@@ -16,9 +16,6 @@ export default  function UserViewPage({
   let user = null;
 
   if (userId !== 'new') {
-    // if (!userId) {
-    //   notFound();
-    // }
     if (edit) {
       return <EditUserPage id={userId} />
     }

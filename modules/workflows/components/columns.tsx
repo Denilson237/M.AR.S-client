@@ -56,8 +56,28 @@ export const columns: ColumnDef<ResponseType>[] = [
     accessorKey: "description",
     header: "Description",
   },
- 
   {
+  header: "Status",
+  cell: ({ row }) => {
+    const isActive = row.original.isActive; // booléen
+
+    return (
+      <div className="flex w-[120px] items-center">
+        {isActive ? (
+          <Badge className="px-3.5 py-2.5 text-center" variant="success">
+            <ShieldCheck className="mr-1 h-4 w-4" /> ACTIVE
+          </Badge>
+        ) : (
+          <Badge className="px-3.5 py-2.5 text-center" variant="destructive">
+            <ShieldX className="mr-1 h-4 w-4" /> INACTIVE
+          </Badge>
+        )}
+      </div>
+    );
+  },
+  },
+
+  /*{
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
@@ -79,7 +99,7 @@ export const columns: ColumnDef<ResponseType>[] = [
         </div>
       )
     },
-  },
+  },*/
   {
     id: "actions",
     cell: ({ row }) => (

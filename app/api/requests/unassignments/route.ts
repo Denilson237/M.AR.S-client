@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { NEXT_PUBLIC_SERVER_URI } from '@/secret';
 
 export async function POST(request: NextRequest) {
-    const data = await request.json();
+const data = await request.json();
 
     if (!NEXT_PUBLIC_SERVER_URI) {
         return NextResponse.json(

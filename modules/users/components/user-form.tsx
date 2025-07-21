@@ -301,7 +301,7 @@ export const UserForm = ({
                                     disabled={disabled}
                                 >
                                     <Trash className='size-4 mr-2' />
-                                    Delete User
+                                    Delete  Workflow
                                 </Button>)
 
                             }

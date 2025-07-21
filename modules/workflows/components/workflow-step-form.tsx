@@ -114,7 +114,7 @@ export const WorkflowStepForm = ({
                                 <FormControl>
                                     <Input
                                         disabled={disabled}
-                                        placeholder="E.g. Herve Ngando."
+                                        placeholder="E.g. Denilson Ngoumla."
                                         {...field}
                                     />
                                 </FormControl>
@@ -132,7 +132,7 @@ export const WorkflowStepForm = ({
                                 <FormControl>
                                     <Input
                                         disabled={disabled}
-                                        placeholder="E.g. Herve Ngando."
+                                        placeholder="E.g. Denilson Ngoumla."
                                         {...field}
                                     />
                                 </FormControl>
@@ -195,7 +195,7 @@ export const WorkflowStepForm = ({
                                     disabled={disabled}
                                 >
                                     <Trash className='size-4 mr-2' />
-                                    Delete User
+                                    Delete Workflow
                                 </Button>)
 
                             }

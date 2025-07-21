@@ -28,7 +28,8 @@ export function NewWorkflowPage() {
     const onSubmit = (values: FormValues) => {
         mutation.mutate(values, {
             onSuccess: (data) => {
-                router.push(`/admin/workflow/${data.id}/steps/new`);
+                //router.push(`/admin/workflow/${data.id}/steps/new`);
+                router.push(`/admin/workflow`);
             },
         });
     }

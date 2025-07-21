@@ -10,7 +10,7 @@ export const useGetWorkflow = (id?: string) => {
       try {
         // const response = await axios.request(config);
         const response = await axios.post(`/api/workflows/${id}` ,{ accessToken : Cookies.get('access_token') });
-        return response.data?.data;
+        return response.data?.data ?? {};
       } catch (error) {
         if (axios.isAxiosError(error)) {
           throw error;

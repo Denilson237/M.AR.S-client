@@ -18,13 +18,12 @@ type PageProps = {
 
 export default async function Page({ params , searchParams}: PageProps) {
   const param = await params;
-  //const searchParam = await searchParams;
+  const searchParam = await searchParams;
   return (
     <PageContainer scrollable>
       <div className="flex-1 space-y-4">
         <Suspense fallback={<FormCardSkeleton />}>
-          {/* <WorkflowViewPage workflowId={params.workflowId} edit={searchParams.e} /> */}
-          <EditWorkflowPage id={param.workflowId} />
+           <WorkflowViewPage workflowId={param.workflowId} edit={searchParam.e} /> 
         </Suspense>
       </div>
     </PageContainer>
